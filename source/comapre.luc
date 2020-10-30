@@ -1,0 +1,14 @@
+module compare (    
+    input io_dip[8], //alufn
+    input a[16],
+    input b[16],
+    
+    output out[16],
+  ) {
+  always {
+    case(io_dip[3-:4]) {
+      51: out[0] = (a == b); // equals
+      53: out[0] = (a < b); // less than
+	  55: out[0] = (a <= b) // less than or equals
+    }
+}

@@ -10,10 +10,10 @@ module boolean (
     
     // when io_dip = 8 then perform a AND b etc...
     case(io_dip[3-:4]) {
-      8: out = a & b;
-      14: out = a | b;
-      6: out = a ^ b;
-      10: out = a;
+      24: out = a & b; // and
+      30: out = a | b; // or
+      22: out = a ^ b; // xor
+      26: out = a; // ldr
     }
   }
 }

@@ -12,13 +12,9 @@ module add (
   sig hold[16];
 
   always {
-    if (io_dip[0] == 0) {
-      // perform addition
-      hold = a + b;
-    }
-    else {
-      // perform subtraction
-      hold = a - b;
+    case(io_dip[3-:4]) {
+      0: hold = a + b; // addition
+      1: out = a - b; // subtraction
     }
     
     out = hold[15-:16];
