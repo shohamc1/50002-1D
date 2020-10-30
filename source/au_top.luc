@@ -35,13 +35,11 @@ module au_top (
     ad.a = io_dip[0];
     ad.b = io_dip[1];
     ad.io_dip = io_dip[2];
-    
+
     io_led[1] = ad.out[7:0];
     io_led[2] = ad.out[15:8];
     io_led[0][0] = ad.z;
     io_led[0][1] = ad.v;
     io_led[0][2] = ad.n;
-    
-    
   }
 }
