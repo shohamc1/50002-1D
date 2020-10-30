@@ -84,7 +84,7 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  C:/Projects/50002-1D/work/vivado/50001-1D/50001-1D.srcs/sources_1/imports/verilog/add_1.v
+  C:/Projects/50002-1D/work/vivado/50001-1D/50001-1D.srcs/sources_1/imports/verilog/multiplier_1.v
   C:/Projects/50002-1D/work/vivado/50001-1D/50001-1D.srcs/sources_1/imports/verilog/reset_conditioner_2.v
   C:/Projects/50002-1D/work/vivado/50001-1D/50001-1D.srcs/sources_1/imports/verilog/au_top_0.v
 }

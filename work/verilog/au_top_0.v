@@ -21,21 +21,15 @@ module au_top_0 (
   
   reg rst;
   
-  wire [16-1:0] M_ad_out;
-  wire [1-1:0] M_ad_z;
-  wire [1-1:0] M_ad_v;
-  wire [1-1:0] M_ad_n;
-  reg [8-1:0] M_ad_io_dip;
-  reg [16-1:0] M_ad_a;
-  reg [16-1:0] M_ad_b;
-  add_1 ad (
-    .io_dip(M_ad_io_dip),
-    .a(M_ad_a),
-    .b(M_ad_b),
-    .out(M_ad_out),
-    .z(M_ad_z),
-    .v(M_ad_v),
-    .n(M_ad_n)
+  wire [16-1:0] M_bool_out;
+  reg [16-1:0] M_bool_a;
+  reg [16-1:0] M_bool_b;
+  reg [8-1:0] M_bool_io_dip;
+  multiplier_1 bool (
+    .a(M_bool_a),
+    .b(M_bool_b),
+    .io_dip(M_bool_io_dip),
+    .out(M_bool_out)
   );
   
   wire [1-1:0] M_reset_cond_out;
@@ -54,13 +48,10 @@ module au_top_0 (
     io_led = 24'h000000;
     io_seg = 8'hff;
     io_sel = 4'hf;
-    M_ad_a = io_dip[0+7-:8];
-    M_ad_b = io_dip[8+7-:8];
-    M_ad_io_dip = io_dip[16+7-:8];
-    io_led[8+7-:8] = M_ad_out[0+7-:8];
-    io_led[16+7-:8] = M_ad_out[8+7-:8];
-    io_led[0+0+0-:1] = M_ad_z;
-    io_led[0+1+0-:1] = M_ad_v;
-    io_led[0+2+0-:1] = M_ad_n;
+    M_bool_a = io_dip[0+7-:8];
+    M_bool_b = io_dip[8+7-:8];
+    M_bool_io_dip = io_dip[16+7-:8];
+    io_led[8+7-:8] = M_bool_out[0+7-:8];
+    io_led[16+7-:8] = M_bool_out[8+7-:8];
   end
 endmodule

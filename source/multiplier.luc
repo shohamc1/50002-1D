@@ -1,0 +1,16 @@
+module multiplier (
+    input a[16],
+    input b[16],
+    input io_dip[8], //alufn
+    output out[16]
+  ) {
+
+  always {
+    out = 0;
+    
+    case(io_dip[7:0]) {
+      2: out = a * b; // multiplication
+      3: out = a / b; // division
+    }
+  }
+}

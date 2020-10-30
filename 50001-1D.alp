@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="50001-1D" board="Alchitry Au" language="Lucid" version="3">
   <files>
+    <src>multiplier.luc</src>
     <src top="true">au_top.luc</src>
     <src>compare.luc</src>
     <component>reset_conditioner.luc</component>
