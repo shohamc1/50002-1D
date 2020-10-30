@@ -1,0 +1,19 @@
+module boolean (
+    input a[16],
+    input b[16],
+    input io_dip[8], //alufn
+    output out[16]
+  ) {
+
+  always {
+    out = 0;
+    
+    // when io_dip = 8 then perform a AND b etc...
+    case(io_dip[3-:4]) {
+      8: out = a & b;
+      14: out = a | b;
+      6: out = a ^ b;
+      10: out = a;
+    }
+  }
+}

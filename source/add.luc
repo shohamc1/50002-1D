@@ -1,0 +1,35 @@
+module add (    
+    input io_dip[8], //alufn
+    input a[16],
+    input b[16],
+    
+    output out[16],
+    output z, // outputs 1 when all output digits are 0
+    output v, // overflow, 1 when output is more than 8 bits
+    output n // significant digit
+  ) {
+  
+  sig hold[16];
+
+  always {
+    if (io_dip[0] == 0) {
+      // perform addition
+      hold = a + b;
+    }
+    else {
+      // perform subtraction
+      hold = a - b;
+    }
+    
+    out = hold[15-:16];
+    
+    if (hold == 0) {
+      z = 1;
+    }
+    else {
+      z = 0;
+    }
+    
+    v = ((io_dip[7]^a[15]) & (io_dip[7]^b[15]) & ~hold[15] | (~(io_dip[7]^b[15]) & hold[15]));
+    n = hold[15];
+}
