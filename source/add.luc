@@ -13,7 +13,7 @@ module add (
 
   always {
   // there *might* be an issue here
-    if (io_dip[7:0] == 0) {
+    if (io_dip[7-:8] == 0) {
       // perform addition
       hold = a + b;
     }

@@ -8,7 +8,7 @@ module multiplier (
   always {
     out = 0;
     
-    case(io_dip[7:0]) {
+    case(io_dip[7-:8]) {
       2: out = a * b; // multiplication
       3: out = a / b; // division
     }
