@@ -12,7 +12,7 @@ module au_top (
   ) {
   
   sig rst;                  // reset signal
-  multiplier bool;
+  boolean bool;
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA

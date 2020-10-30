@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module multiplier_1 (
+module boolean_1 (
     input [15:0] a,
     input [15:0] b,
     input [7:0] io_dip,
@@ -17,11 +17,20 @@ module multiplier_1 (
     out = 1'h0;
     
     case (io_dip[0+7-:8])
-      2'h2: begin
-        out = a * b;
+      5'h18: begin
+        out = a & b;
       end
-      2'h3: begin
-        out = a / b;
+      5'h1e: begin
+        out = a | b;
+      end
+      5'h16: begin
+        out = a ^ b;
+      end
+      3'h4: begin
+        out = a ~^ b;
+      end
+      5'h1a: begin
+        out = a;
       end
     endcase
   end

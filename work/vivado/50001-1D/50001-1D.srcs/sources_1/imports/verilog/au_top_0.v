@@ -25,7 +25,7 @@ module au_top_0 (
   reg [16-1:0] M_bool_a;
   reg [16-1:0] M_bool_b;
   reg [8-1:0] M_bool_io_dip;
-  multiplier_1 bool (
+  boolean_1 bool (
     .a(M_bool_a),
     .b(M_bool_b),
     .io_dip(M_bool_io_dip),
