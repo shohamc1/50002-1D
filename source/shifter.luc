@@ -1,0 +1,91 @@
+module shifter (
+    input a[16],
+    input b[4],
+    input io_dip[2], //alufn
+    
+    output out[16]
+    
+  ) {
+  
+  sig w[16];
+  sig x[16];
+  sig y[16];
+  sig z[16];
+  
+  always {
+    w = 0;
+    x = 0;
+    y = 0;
+    z = 0;
+  
+    if (io_dip[1:0] == 00) {
+    //SHL
+      case(b[0]) {
+        b0: w = a;
+        b1: w = a << 1;//w[15:1] = a[14:0];
+                       //w[0] = 0;
+        }
+      case(b[1]) {
+        b0: x = w;
+        b1: x = w << 2;//x[15:2] = w[13:0];
+                       //x[1:0] = 2b0;
+        }
+      case(b[2]) {
+        b0: y = x;
+        b1: y = x << 4;//y[15:4] = x[11:0];
+                       //y[3:0] = 4b0;
+        }
+      case(b[3]) {
+        b0: z = y;
+        b1: z = y << 8;//z[15:8] = y[7:0];
+                       //z[7:0] = 8b0;
+        }
+      }
+    else if (io_dip[1:0] == 01) {
+     //SHR
+      case(b[0]) {
+        b0: w = a;
+        b1: w = a >> 1;//w[14:0] = a[15:1];
+                       //w[15] = 0;
+        }
+      case(b[1]) {
+        b0: x = w;
+        b1: x = w >> 2;//x[13:0] = w[15:2];
+                       //x[15:14] = 2b0;
+        }
+      case(b[2]) {
+        b0: y = x;
+        b1: y = x >> 4;//y[11:0] = x[15:4];
+                       //y[15:12] = 4b0;
+        }
+      case(b[3]) {
+        b0: z = y;
+        b1: z = y >> 8;//z[7:0] = y[15:8];
+                       //z[15:8] = 8b0;
+        } 
+      }
+    else if (io_dip[1:0] == 11) {
+     //SRA  
+      case(b[0]) {
+        b0: w = a;
+        b1: w = a >>> 1;
+        }
+      case(b[1]) {
+        b0: x = w;
+        b1: x = w >>> 2;
+        }
+      case(b[2]) {
+        b0: y = x;
+        b1: y = x >>> 4;
+        }
+      case(b[3]) {
+        b0: z = y;
+        b1: z = y >>> 8;
+        }    
+      }
+    else {
+        z = a;
+      }
+    out = z;
+  }
+}
