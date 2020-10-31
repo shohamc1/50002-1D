@@ -1,7 +1,7 @@
 module shifter (
     input a[16],
     input b[4],
-    input io_dip[2], //alufn
+    input io_dip[8], //alufn
     
     output out[16]
     
@@ -17,8 +17,9 @@ module shifter (
     x = 0;
     y = 0;
     z = 0;
-  
-    if (io_dip[1:0] == 00) {
+    
+    // ALUFN numbers temporarily changed to accomodate the restrictions of io_dip
+    if (io_dip[7-:8] == 5) {
     //SHL
       case(b[0]) {
         b0: w = a;
@@ -41,7 +42,7 @@ module shifter (
                        //z[7:0] = 8b0;
         }
       }
-    else if (io_dip[1:0] == 01) {
+    else if (io_dip[7-:8] == 6) {
      //SHR
       case(b[0]) {
         b0: w = a;
@@ -64,7 +65,7 @@ module shifter (
                        //z[15:8] = 8b0;
         } 
       }
-    else if (io_dip[1:0] == 11) {
+    else if (io_dip[7-:8] == 7) {
      //SRA  
       case(b[0]) {
         b0: w = a;

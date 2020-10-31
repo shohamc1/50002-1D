@@ -8,6 +8,7 @@
     <src>add.luc</src>
     <src>boolean.luc</src>
     <src>fulladder.luc</src>
+    <src>shifter.luc</src>
     <constraint lib="true">alchitry.acf</constraint>
     <constraint lib="true">io.acf</constraint>
     <constraint lib="true">au.xdc</constraint>
