@@ -1,0 +1,239 @@
+module tester (    
+    input counter[6], //alufn
+    
+    output out[16] // significant digit
+  ) {
+  
+  alu aluTest;
+  alufn_rom alufnRom;
+  a_input_rom aRom;
+  b_input_rom bRom;
+  output_rom outRom;
+  
+
+  always {
+    alufnRom.address = counter;
+    aRom.address = counter;
+    bRom.address = counter;
+    outRom.address = counter;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter] = 1;
+    } else {
+      out[counter] = 0;
+    }
+    
+    alufnRom.address = counter + 1;
+    aRom.address = counter + 1;
+    bRom.address = counter + 1;
+    outRom.address = counter + 1;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 1] = 1;
+    } else {
+      out[counter + 1] = 0;
+    }
+    
+    alufnRom.address = counter + 2;
+    aRom.address = counter + 2;
+    bRom.address = counter + 2;
+    outRom.address = counter + 2;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 2] = 1;
+    } else {
+      out[counter + 2] = 0;
+    }
+    
+    alufnRom.address = counter + 3;
+    aRom.address = counter + 3;
+    bRom.address = counter + 3;
+    outRom.address = counter + 3;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 3] = 1;
+    } else {
+      out[counter + 3] = 0;
+    }
+    
+    alufnRom.address = counter + 4;
+    aRom.address = counter + 4;
+    bRom.address = counter + 4;
+    outRom.address = counter + 4;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 4] = 1;
+    } else {
+      out[counter + 4] = 0;
+    }
+    
+    alufnRom.address = counter + 5;
+    aRom.address = counter + 5;
+    bRom.address = counter + 5;
+    outRom.address = counter + 5;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 5] = 1;
+    } else {
+      out[counter + 5] = 0;
+    }
+    
+    alufnRom.address = counter + 6;
+    aRom.address = counter + 6;
+    bRom.address = counter + 6;
+    outRom.address = counter + 6;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 6] = 1;
+    } else {
+      out[counter + 6] = 0;
+    }
+    
+    alufnRom.address = counter + 7;
+    aRom.address = counter + 7;
+    bRom.address = counter + 7;
+    outRom.address = counter + 7;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 7] = 1;
+    } else {
+      out[counter + 7] = 0;
+    }
+    
+    alufnRom.address = counter + 8;
+    aRom.address = counter + 8;
+    bRom.address = counter + 8;
+    outRom.address = counter + 8;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 8] = 1;
+    } else {
+      out[counter + 8] = 0;
+    }
+    
+    alufnRom.address = counter + 9;
+    aRom.address = counter + 9;
+    bRom.address = counter + 9;
+    outRom.address = counter + 9;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 9] = 1;
+    } else {
+      out[counter + 9] = 0;
+    }
+    
+    alufnRom.address = counter + 10;
+    aRom.address = counter + 10;
+    bRom.address = counter + 10;
+    outRom.address = counter + 10;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 10] = 1;
+    } else {
+      out[counter + 10] = 0;
+    }
+
+    alufnRom.address = counter + 11;
+    aRom.address = counter + 11;
+    bRom.address = counter + 11;
+    outRom.address = counter + 11;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 11] = 1;
+    } else {
+      out[counter + 11] = 0;
+    }
+    
+    alufnRom.address = counter + 12;
+    aRom.address = counter + 12;
+    bRom.address = counter + 12;
+    outRom.address = counter + 12;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 12] = 1;
+    } else {
+      out[counter + 12] = 0;
+    }
+    
+    alufnRom.address = counter + 13;
+    aRom.address = counter + 13;
+    bRom.address = counter + 13;
+    outRom.address = counter + 13;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 13] = 1;
+    } else {
+      out[counter + 13] = 0;
+    }
+    
+    alufnRom.address = counter + 14;
+    aRom.address = counter + 14;
+    bRom.address = counter + 14;
+    outRom.address = counter + 14;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 14] = 1;
+    } else {
+      out[counter + 14] = 0;
+    }
+    
+    alufnRom.address = counter + 15;
+    aRom.address = counter + 15;
+    bRom.address = counter + 15;
+    outRom.address = counter + 15;
+    
+    aluTest.alufn = alufnRom.alufn_output;
+    aluTest.a = aRom.a_output;
+    aluTest.b = bRom.b_output;
+    if (aluTest.out == outRom.s_output) {
+      out[counter + 15] = 1;
+    } else {
+      out[counter + 15] = 0;
+    }
+}
+}
