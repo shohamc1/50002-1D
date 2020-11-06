@@ -23,9 +23,9 @@ module au_top_0 (
   
   wire [16-1:0] M_bool_out;
   reg [16-1:0] M_bool_a;
-  reg [16-1:0] M_bool_b;
+  reg [4-1:0] M_bool_b;
   reg [8-1:0] M_bool_io_dip;
-  boolean_1 bool (
+  shifter_1 bool (
     .a(M_bool_a),
     .b(M_bool_b),
     .io_dip(M_bool_io_dip),
@@ -48,9 +48,10 @@ module au_top_0 (
     io_led = 24'h000000;
     io_seg = 8'hff;
     io_sel = 4'hf;
-    M_bool_a = io_dip[0+7-:8];
-    M_bool_b = io_dip[8+7-:8];
-    M_bool_io_dip = io_dip[16+7-:8];
+    M_bool_a[0+7-:8] = io_dip[0+7-:8];
+    M_bool_a[8+7-:8] = io_dip[8+7-:8];
+    M_bool_b = io_dip[16+4+3-:4];
+    M_bool_io_dip = io_dip[16+0+3-:4];
     io_led[8+7-:8] = M_bool_out[0+7-:8];
     io_led[16+7-:8] = M_bool_out[8+7-:8];
   end
