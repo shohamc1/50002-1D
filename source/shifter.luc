@@ -1,7 +1,7 @@
 module shifter (
     input a[16],
-    input b[4],
-    input io_dip[8], //alufn
+    input b[4],   //If the input b width is 16, will the shifter just take in the first 4 bits?
+    input alufn[6], //alufn
     
     output out[16]
     
@@ -19,7 +19,7 @@ module shifter (
     z = 0;
     
     // ALUFN numbers temporarily changed to accomodate the restrictions of io_dip
-    if (io_dip[7-:8] == 5) {
+    if (alufn == 5) {
     //SHL
       case(b[0]) {
         b0: w = a;
@@ -42,7 +42,7 @@ module shifter (
                        //z[7:0] = 8b0;
         }
       }
-    else if (io_dip[7-:8] == 6) {
+    else if (alufn == 6) {
      //SHR
       case(b[0]) {
         b0: w = a;
@@ -65,7 +65,7 @@ module shifter (
                        //z[15:8] = 8b0;
         } 
       }
-    else if (io_dip[7-:8] == 7) {
+    else if (alufn == 7) {
      //SRA  
       case(b[0]) {
         b0: w = a;

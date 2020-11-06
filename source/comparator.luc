@@ -1,0 +1,24 @@
+module comparator (    
+    input alufn[6], //alufn
+    input a[16],
+    input b[16],
+    
+    output out[16]
+  ) {
+  
+  sig holder[16];
+  
+  always {
+  
+    holder = 0;
+    
+    case(alufn) {
+      51: holder = c{15b0, (a == b)}; // equals
+      53: holder = c{15b0, (a < b)}; // less than
+      55: holder = c{15b0, (a <= b)}; // less than or equals
+    }
+    
+    out = holder[15-:16];   
+    
+  }
+}
