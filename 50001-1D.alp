@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="50001 - clone2" board="Alchitry Au" language="Lucid" version="3">
+<project name="50001-1D" board="Alchitry Au" language="Lucid" version="3">
   <files>
     <src>boolean.luc</src>
     <src>output_rom.luc</src>
