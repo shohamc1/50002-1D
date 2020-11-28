@@ -1,0 +1,168 @@
+module display (
+    input clk,  // clock
+    input rst,  // reset
+    input a[7],
+    input b[7],
+    input c[7],
+    input d[7],
+    input current[7],
+    input target[7],
+    output out_a[7],
+    output out_a1[7], //tens place for the option a display
+    output out_b[7],
+    output out_b1[7], //tens place for the option b display
+    output out_c[7],
+    output out_c1[7], //tens place for the option c display 
+    output out_d[7],  
+    output out_d1[7]  //tens place for the option d display 
+  ) {
+
+  always {
+    
+      case (a) {
+    0:out_a = 7b0111111;
+    out_a1 = 7b0000000; 
+    1:out_a = 7b0000110;
+    out_a1 = 7b0000000;
+    2:out_a = 7b1011011;
+    out_a1 = 7b0000000;
+    3:out_a = 7b1001111;
+    out_a1 = 7b0000000;
+    4:out_a = 7b1100110;
+    out_a1 = 7b0000000;
+    5:out_a = 7b1101101;
+    out_a1 = 7b0000000;
+    6:out_a = 7b1111101;
+    out_a1 = 7b0000000;
+    7:out_a = 7b0000111;
+    out_a1 = 7b0000000;
+    8:out_a = 7b1111111;
+    out_a1 = 7b0000000;
+    9:out_a = 7b1100111;
+    out_a1 = 7b0000000;
+    10:out_a = 7b0111111;
+       out_a1 = 7b0000110;
+    11:out_a = 7b0000110;
+    out_a1 = 7b0000110;
+    12:out_a = 7b1011011;
+    out_a1 = 7b0000110;
+    13:out_a = 7b1001111;
+    out_a1 = 7b0000110;
+    14:out_a = 7b1100110;
+    out_a1 = 7b0000110;
+    15:out_a = 7b1101101;
+    out_a1 = 7b0000110;
+    default:out_a = 7b0000000;
+    out_a1 = 7b0000000;
+    }
+    
+      case (b) {
+    0:out_b = 7b0111111;
+    out_b1 = 7b0000000; 
+    1:out_b = 7b0000110;
+    out_b1 = 7b0000000;
+    2:out_b = 7b1011011;
+    out_b1 = 7b0000000;
+    3:out_b = 7b1001111;
+    out_b1 = 7b0000000;
+    4:out_b = 7b1100110;
+    out_b1 = 7b0000000;
+    5:out_b = 7b1101101;
+    out_b1 = 7b0000000;
+    6:out_b = 7b1111101;
+    out_b1 = 7b0000000;
+    7:out_b = 7b0000111;
+    out_b1 = 7b0000000;
+    8:out_b = 7b1111111;
+    out_b1 = 7b0000000;
+    9:out_b = 7b1100111;
+    out_b1 = 7b0000000;
+    10:out_b = 7b0111111;
+       out_b1 = 7b0000110;
+    11:out_b = 7b0000110;
+    out_b1 = 7b0000110;
+    12:out_b = 7b1011011;
+    out_b1 = 7b0000110;
+    13:out_b = 7b1001111;
+    out_b1 = 7b0000110;
+    14:out_b = 7b1100110;
+    out_b1 = 7b0000110;
+    15:out_b = 7b1101101;
+    out_b1 = 7b0000110;
+    default:out_b = 7b0000000;
+    out_b1 = 7b0000000;
+    }
+      case (c) {
+    0:out_c = 7b0111111;
+    out_c1 = 7b0000000; 
+    1:out_c = 7b0000110;
+    out_c1 = 7b0000000;
+    2:out_c = 7b1011011;
+    out_c1 = 7b0000000;
+    3:out_c = 7b1001111;
+    out_c1 = 7b0000000;
+    4:out_c = 7b1100110;
+    out_c1 = 7b0000000;
+    5:out_c = 7b1101101;
+    out_c1 = 7b0000000;
+    6:out_c = 7b1111101;
+    out_c1 = 7b0000000;
+    7:out_c = 7b0000111;
+    out_c1 = 7b0000000;
+    8:out_c = 7b1111111;
+    out_c1 = 7b0000000;
+    9:out_c = 7b1100111;
+    out_c1 = 7b0000000;
+    10:out_c = 7b0111111;
+       out_c1 = 7b0000110;
+    11:out_c = 7b0000110;
+    out_c1 = 7b0000110;
+    12:out_c = 7b1011011;
+    out_c1 = 7b0000110;
+    13:out_c = 7b1001111;
+    out_c1 = 7b0000110;
+    14:out_c = 7b1100110;
+    out_c1 = 7b0000110;
+    15:out_c = 7b1101101;
+    out_c1 = 7b0000110;
+    default:out_c = 7b0000000;
+    out_c1 = 7b0000000;
+    }
+      case (d) {
+    0:out_d = 7b0111111;
+    out_d1 = 7b0000000; 
+    1:out_d = 7b0000110;
+    out_d1 = 7b0000000;
+    2:out_d = 7b1011011;
+    out_d1 = 7b0000000;
+    3:out_d = 7b1001111;
+    out_d1 = 7b0000000;
+    4:out_d = 7b1100110;
+    out_d1 = 7b0000000;
+    5:out_d = 7b1101101;
+    out_d1 = 7b0000000;
+    6:out_d = 7b1111101;
+    out_d1 = 7b0000000;
+    7:out_d = 7b0000111;
+    out_d1 = 7b0000000;
+    8:out_d = 7b1111111;
+    out_d1 = 7b0000000;
+    9:out_d = 7b1100111;
+    out_d1 = 7b0000000;
+    10:out_d = 7b0111111;
+       out_d1 = 7b0000110;
+    11:out_d = 7b0000110;
+    out_d1 = 7b0000110;
+    12:out_d = 7b1011011;
+    out_d1 = 7b0000110;
+    13:out_d = 7b1001111;
+    out_d1 = 7b0000110;
+    14:out_d = 7b1100110;
+    out_d1 = 7b0000110;
+    15:out_d = 7b1101101;
+    out_d1 = 7b0000110;
+    default:out_d = 7b0000000;
+    out_d1 = 7b0000000;
+    }
+  
+}

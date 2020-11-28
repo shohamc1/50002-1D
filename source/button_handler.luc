@@ -1,0 +1,38 @@
+module button_handler (
+    input n1_sig,
+    input n2_sig,
+    input n3_sig,
+    input n4_sig,
+    input reset,
+    output reset_out,
+    output nx_signal[3],
+    output error
+  ) {
+  
+  
+  always {
+    error = 0;
+    nx_signal = 0;
+    
+    reset_out = reset;
+    
+    if (n1_sig + n2_sig + n3_sig + n4_sig > 1) { //to make sure that only 1 button is pressed and recognised each time
+      error = 1;
+      }
+    else if (n1_sig == 1) {
+      nx_signal = 1;
+      }
+    else if (n2_sig == 1) {
+      nx_signal = 2;
+      }
+    else if (n3_sig == 1) {
+      nx_signal = 3;
+      }
+    else if (n4_sig == 1) {
+      nx_signal = 4;
+      }
+     
+   
+    
+  }
+}
