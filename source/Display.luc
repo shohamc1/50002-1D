@@ -1,12 +1,14 @@
 module display (
-    input clk,  // clock
-    input rst,  // reset
     input a[7],
     input b[7],
     input c[7],
     input d[7],
     input current[7],
     input target[7],
+    output current_one[7],   //current num ones place 
+    output current_ten[7],   //current num tens place
+    output target_one[7],    //target num ones place 
+    output target_ten[7],    //target num tens place
     output out_a[7],
     output out_a1[7], //tens place for the option a display
     output out_b[7],
@@ -54,7 +56,7 @@ module display (
     out_a1 = 7b0000110;
     default:out_a = 7b0000000;
     out_a1 = 7b0000000;
-    }
+  }
     
       case (b) {
     0:out_b = 7b0111111;
@@ -91,7 +93,7 @@ module display (
     out_b1 = 7b0000110;
     default:out_b = 7b0000000;
     out_b1 = 7b0000000;
-    }
+  }
       case (c) {
     0:out_c = 7b0111111;
     out_c1 = 7b0000000; 
@@ -127,7 +129,7 @@ module display (
     out_c1 = 7b0000110;
     default:out_c = 7b0000000;
     out_c1 = 7b0000000;
-    }
+  }
       case (d) {
     0:out_d = 7b0111111;
     out_d1 = 7b0000000; 
@@ -163,6 +165,271 @@ module display (
     out_d1 = 7b0000110;
     default:out_d = 7b0000000;
     out_d1 = 7b0000000;
-    }
-  
+  }
+      case(current){
+    0:
+      current_one=7b0111111;
+      current_ten=7b0000000;
+    1:
+      current_one=7b0000110;
+      current_ten=7b0000000;
+    2:
+      current_one=7b1011011;
+      current_ten=7b0000000;
+    3:
+      current_one=7b1001111;
+      current_ten=7b0000000;
+    4:
+      current_one=7b1100110;
+      current_ten=7b0000000;
+    5:
+      current_one=7b1101101;
+      current_ten=7b0000000;
+    6:
+      current_one=7b1111101;
+      current_ten=7b0000000;
+    7:
+      current_one=7b0000111;
+      current_ten=7b0000000;
+    8:
+      current_one=7b1111111;
+      current_ten=7b0000000;
+    9:
+      current_one=7b1100111;
+      current_ten=7b0000000;
+    10:
+      current_one=7b0111111;
+      current_ten=7b0000110;
+    11:
+      current_one=7b0000110;
+      current_ten=7b0000110;
+    12:
+      current_one=7b1011011;
+      current_ten=7b0000110;
+    13:
+      current_one=7b1001111;
+      current_ten=7b0000110;
+    14:
+      current_one=7b1100110;
+      current_ten=7b0000110;    
+    15:
+      current_one=7b1101101;
+      current_ten=7b0000110;    
+    16:
+      current_one=7b1111101;
+      current_ten=7b0000110;    
+    17:
+      current_one=7b0000111;
+      current_ten=7b0000110;    
+    18:
+      current_one=7b1111111;
+      current_ten=7b0000110;    
+    19:
+      current_one=7b1100111;
+      current_ten=7b0000110;    
+    20:
+      current_one=7b0111111;
+      current_ten=7b1011011;  
+    21:
+      current_one=7b0000110;
+      current_ten=7b1011011;     
+    22:
+      current_one=7b1011011;
+      current_ten=7b1011011;     
+    23:
+      current_one=7b1001111;
+      current_ten=7b1011011;     
+    24:
+      current_one=7b1100110;
+      current_ten=7b1011011;     
+    25:
+      current_one=7b1101101;
+      current_ten=7b1011011;     
+    26:
+      current_one=7b1111101;
+      current_ten=7b1011011;     
+    27:
+      current_one=7b0000111;
+      current_ten=7b1011011;     
+    28:
+      current_one=7b0111111;
+      current_ten=7b1011011;     
+    29:
+      current_one=7b1100111;
+      current_ten=7b1011011;     
+    30:
+      current_one=7b0111111;
+      current_ten=7b1001111;
+    31:
+      current_one=7b0000110;
+      current_ten=7b1001111;        
+    32:
+      current_one=7b1011011;
+      current_ten=7b1001111;    
+    33:
+      current_one=7b1001111;
+      current_ten=7b1001111;    
+    34:
+      current_one=7b1100110;
+      current_ten=7b1001111;    
+    35:
+      current_one=7b1101101;
+      current_ten=7b1001111;    
+    36:
+      current_one=7b1111101;
+      current_ten=7b1001111;    
+    37:
+      current_one=7b0000111;
+      current_ten=7b1001111;    
+    38:
+      current_one=7b1111111;
+      current_ten=7b1001111;    
+    39:
+      current_one=7b1100111;
+      current_ten=7b1001111;    
+    40:
+      current_one=7b0111111;
+      current_ten=7b1100110;
+    41:
+      current_one=7b0000110;
+      current_ten=7b1100110;    
+    42:
+      current_one=7b1011011;
+      current_ten=7b1100110;    
+    43:
+      current_one=7b1001111;
+      current_ten=7b1100110;
+    44:
+      current_one=7b1100110;
+      current_ten=7b1100110;      
+    45:
+      current_one=7b1101101;
+      current_ten=7b1100110;    
+    46:
+      current_one=7b1111101;
+      current_ten=7b1100110;    
+    47:
+      current_one=7b0000111;
+      current_ten=7b1100110;    
+    48:
+      current_one=7b1111111;
+      current_ten=7b1100110;    
+    49:
+      current_one=7b1100111;
+      current_ten=7b1100110;    
+    50:
+      current_one=7b0111111;
+      current_ten=7b1101101; 
+      
+    51:current_one = 7b0000110;
+    current_ten = 7b1101101;
+    52:current_one = 7b1011011;
+    current_ten = 7b1101101;
+    53:current_one = 7b1001111;
+    current_ten = 7b1101101;
+    54:current_one = 7b1100110;
+    current_ten = 7b1101101;
+    55:current_one = 7b1101101;
+    current_ten = 7b1101101;
+    56:current_one = 7b1111101;
+    current_ten = 7b1101101;
+    57:current_one = 7b0000111;
+    current_ten = 7b1101101;
+    58:current_one = 7b1111111;
+    current_ten = 7b1101101;
+    59:current_one = 7b1100111;
+    current_ten = 7b1101101;
+
+    60:current_one = 7b0111111;
+    current_ten = 7b1111101;
+    61:current_one = 7b0000110;
+    current_ten = 7b1111101;
+    62:current_one = 7b1011011;
+    current_ten = 7b1111101;
+    63:current_one = 7b1001111;
+    current_ten = 7b1111101;
+    64:current_one = 7b1100110;
+    current_ten = 7b1111101;
+    65:current_one = 7b1101101;
+    current_ten = 7b1111101;
+    66:current_one = 7b1111101;
+    current_ten = 7b1111101;
+    67:current_one = 7b0000111;
+    current_ten = 7b1111101;
+    68:current_one = 7b1111111;
+    current_ten = 7b1111101;
+    69:current_one = 7b1100111;
+    current_ten = 7b1111101;
+
+    70:current_one = 7b0111111;
+    current_ten = 7b0000111;
+    71:current_one = 7b0000110;
+    current_ten = 7b0000111;
+    72:current_one = 7b1011011;
+    current_ten = 7b0000111;
+    73:current_one = 7b1001111;
+    current_ten = 7b0000111;
+    74:current_one = 7b1100110;
+    current_ten = 7b0000111;
+    75:current_one = 7b1101101;
+    current_ten = 7b0000111;
+    76:current_one = 7b1111101;
+    current_ten = 7b0000111;
+    77:current_one = 7b0000111;
+    current_ten = 7b0000111;
+    78:current_one = 7b1111111;
+    current_ten = 7b0000111;
+    79:current_one = 7b1100111;
+    current_ten = 7b0000111;
+
+    80:current_one = 7b0111111;
+    current_ten = 7b1111111;
+    81:current_one = 7b0000110;
+    current_ten = 7b1111111;
+    82:current_one = 7b1011011;
+    current_ten = 7b1111111;
+    83:current_one = 7b1001111;
+    current_ten = 7b1111111;
+    84:current_one = 7b1100110;
+    current_ten = 7b1111111;
+    85:current_one = 7b1101101;
+    current_ten = 7b1111111;
+    86:current_one = 7b1111101;
+    current_ten = 7b1111111;
+    87:current_one = 7b0000111;
+    current_ten = 7b1111111;
+    88:current_one = 7b1111111;
+    current_ten = 7b1111111;
+    89:current_one = 7b1100111;
+    current_ten = 7b1111111;
+
+    90:current_one = 7b0111111;
+    current_ten = 7b1100111;
+    91:current_one = 7b0000110;
+    current_ten = 7b1100111;
+    92:current_one = 7b1011011;
+    current_ten = 7b1100111;
+    93:current_one = 7b1001111;
+    current_ten = 7b1100111;
+    94:current_one = 7b1100110;
+    current_ten = 7b1100111;
+    95:current_one = 7b1101101;
+    current_ten = 7b1100111;
+    96:current_one = 7b1111101;
+    current_ten = 7b1100111;
+    97:current_one = 7b0000111;
+    current_ten = 7b1100111;
+    98:current_one = 7b1111111;
+    current_ten = 7b1100111;
+    99:current_one = 7b1100111;
+    current_ten = 7b1100111;
+    default: current_one= 7b0000000;
+    current_ten = 7b0000000;
+  }
+    case(target){
+    99:target_one = 7b1100111;
+    target_ten = 7b1100111;
+    default:target_one= 7b0000000;
+    target_ten = 7b0000000;
+  }
 }
