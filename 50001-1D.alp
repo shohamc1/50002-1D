@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="50001-1D" board="Alchitry Au" language="Lucid" version="3">
   <files>
-    <src>boolean.luc</src>
-    <src>output_rom.luc</src>
-    <src>multiplier.luc</src>
-    <src>comparator.luc</src>
-    <src>b_input_rom.luc</src>
-    <src>tester.luc</src>
-    <component>simple_ram.v</component>
-    <src>a_input_rom.luc</src>
     <src>alu.luc</src>
-    <src top="true">au_top.luc</src>
-    <src>shifter.luc</src>
-    <src>adder.luc</src>
     <component>reset_conditioner.luc</component>
+    <src>random2.luc</src>
+    <src>a_input_rom.luc</src>
+    <src>adder.luc</src>
+    <src>b_input_rom.luc</src>
+    <src>multiplier.luc</src>
     <src>alufn_rom.luc</src>
+    <src>tester.luc</src>
+    <src top="true">au_top.luc</src>
+    <component>simple_ram.v</component>
+    <src>random.luc</src>
+    <src>output_rom.luc</src>
+    <src>comparator.luc</src>
+    <src>boolean.luc</src>
+    <src>shifter.luc</src>
     <constraint>custom.acf</constraint>
     <constraint>file.xdc</constraint>
   </files>
