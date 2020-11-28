@@ -3,8 +3,8 @@ module score_updater (
     input update,
     input reset,
     input clk,
+    input rst,
     
-
     output out_a[16],
     output out_b[16],
     output out_c[16],
@@ -12,25 +12,52 @@ module score_updater (
     output out_curr[16],
     output out_target[16]
   ) {
-  
   alu alu_unit;
   ram_handler ram;
   random_number_generator generate_num;
   
+  .clk(clk) {
+    .rst(rst) {
+      fsm state = {RETRIEVE, COMPARE, UPDATE};
+    }
+  }
 
-
+  sig current, target, result;
 
   always {
-    num_sig = 3bx;
-    update = 1b0;
-    reset = 1b0;
-
     ram.num_sig = 3hx;
     ram.clk = clk;
-    ram.reset = 1b0;
-    if (state == 1) {
-        ram1.
+    ram.state = 2b00;
+    if (update == 1 && reset == 0) {
+      case(state.q) {
+        state.RETRIEVE:
+          ram.state = 1;
+          alu.alufn = 0;
+          alu.a = ram.out_number;
+          alu.b = ram.out_current;
+          current = alu.out; //DFF
+          target = ram.out_target; //DFF
+          
+          state.d = state.COMPARE;
+        state.COMPARE:
+          alu.alufn = 3
+          alu.a = current;
+          alu.b = target;
+          result = alu.out;
+          if (result == 1) {
+            
+          }
 
+
+      }
+      
+      alu.
+
+      
+    } else if (update == 0 && reset == 1) {
+      ram.num_sig = num_sig;
+      ram.state = 3;
+      ram.hard_reset_values = 42hfffffffffff
     }
     
     

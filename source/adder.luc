@@ -1,9 +1,9 @@
 module adder (    
-    input alufn[6], //alufn
-    input a[16],
-    input b[16],
+    input alufn[2], //alufn
+    input a[7],
+    input b[7],
     
-    output out[16]
+    output out[7]
   ) {
 
   always {

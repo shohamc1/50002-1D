@@ -9,7 +9,7 @@ module ram_handler (
     input state[2], //1 for retrieve, 2 for soft reset, 3 for hard reset
     input clk,
 
-    output out_num_value[7],
+    output out_number[7],
     output out_current[7],
     output out_target[7]
   ) {
@@ -34,7 +34,7 @@ module ram_handler (
     if (state == 1) { // retrieve values
         ram.write_en = 0;
         ram.address = num_sig;
-        out_num_value = ram.read_data;
+        out_number = ram.read_data;
         ram.address = 5;
         out_current = ram.read_data;
         ram.address = 6;
