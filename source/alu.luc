@@ -1,84 +1,36 @@
 module alu (
     input a[16],
     input b[16],
-    input alufn[6],
+    input alufn[2],
     
-    output out[19],
-    output check_alufn[1]
+    output out[16]
   ) {
-  sig hold[19];
   
   adder add;
   comparator comp;
-  boolean boole;
-  shifter shift;
-  multiplier mul;
-
+  
   always {
     //temporary input signals to the alu components
-    hold[18-:3] = 3b0;
-    hold[15-:16] = 16bx;
     add.a = 16bx;
     add.b = 16bx;
     add.alufn = 6bx;
     comp.a = 16bx;
     comp.b = 16bx;
     comp.alufn = 6bx;
-    boole.a = 16bx;
-    boole.b = 16bx;
-    boole.alufn = 6bx;
-    mul.a = 16bx;
-    mul.b = 16bx;
-    mul.alufn = 6bx;
-    shift.a = 16bx;
-    shift.b = 4bx;
-    shift.alufn = 6bx;
-    
-    check_alufn = 0;
 
-    if (alufn == 0 | alufn == 1) {
+    if (alufn == 0) {
     // a,b,alufn are directed to the adder module
       add.a = a;
       add.b = b;
       add.alufn = alufn;
-      hold[15-:16] = a;
-      //hold[16] = 1;
-      //hold [17] = 0;
-      //hold[18] = 1;
-      //hold[18-:3] = alufn[2-:3];
-      hold[15-:16] = add.out;
-      hold[16] = add.n;
-      hold [17] = add.v;
-      hold[18] = add.z;
+      out = add.out;
       
-  } else if (alufn == 2) {
-    // a,b,alufn are directed to the mul module
-      mul.a = a;
-      mul.b = b;
-      mul.alufn = alufn;
-      hold = mul.out;
-  } else if (alufn == 5 | alufn == 6 | alufn == 7) {
+    } else if (alufn == 1 | alufn == 2 | alufn == 3) {
     // a,b,alufn are directed to the shifter module
       shift.a = a;
       shift.b = b;
       shift.alufn = alufn;
-      hold = shift.out;
-  } else if (alufn == 22 | alufn == 24 | alufn == 25 | alufn == 26 | alufn == 30) {
-    // a,b,alufn are directed to the boolean module
-      boole.a = a;
-      boole.b = b;
-      boole.alufn = alufn;
-      out = boole.out;
-  } else if (alufn == 51 | alufn == 53 | alufn == 55) {
-    // a,b,alufn are directed to the comparator module
-      comp.a = a;
-      comp.b = b;
-      comp.alufn = alufn;
-      hold = comp.out;
-    } 
-     else {
-       check_alufn = 1;
-     }
-     out = hold; 
+      out = shift.out;
+    }
   }
 }

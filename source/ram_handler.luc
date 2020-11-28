@@ -1,0 +1,60 @@
+/*
+Handles extracting and updating values inside the ram, based on the inputs given.
+*/
+
+module ram_handler (
+    input num_sig[3], //location of the value from ram to be added to target value
+    input hard_reset_values[42], // 7bits * 6 slots
+    input soft_reset_values[35], // 7bits * 5 slots
+    input state[2], //1 for retrieve, 2 for soft reset, 3 for hard reset
+    input clk,
+
+    output out_num_value[7],
+    output out_current[7],
+    output out_target[7]
+  ) {
+    sig i, start_sig[5];
+
+  .clk(clk) {
+      simple_ram ram (#SIZE(7), #DEPTH(6));
+  }
+
+
+  always {
+    state = 2bx;
+    start_sig = 6;
+    num_sig = 3hx;
+    hard_reset_values = 42hxxxxxxxxxxx;
+    soft_reset_values = 35hxxxxxxxxx;
+
+    ram.write_en = 0;
+    ram.address = 0;
+    ram.write_data = 16hxxxx;
+
+    if (state == 1) { // retrieve values
+        ram.write_en = 0;
+        ram.address = num_sig;
+        out_num_value = ram.read_data;
+        ram.address = 5;
+        out_current = ram.read_data;
+        ram.address = 6;
+        out_target = ram.read_data;
+    } else if (state == 2) { // soft_reset
+        ram.write_en = 1;
+        for (i=1;i<5;i++) {
+            ram.address = i;
+            ram.write_data = soft_reset_values[start_sig-:7];
+            start_sig = start_sig + 7;
+        }
+        ram.write_en = 0;
+    } else if (state == 3) { // hard_reset.
+        ram.write_en = 1;
+        for (i=1;i<7;i++) {
+            ram.address = i;
+            ram.write_data = hard_reset_values[start_sig-:16]
+            start_sig = start_sig + 7;
+        }
+        ram.write_en = 0;
+    }
+  }
+}

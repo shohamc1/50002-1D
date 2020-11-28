@@ -13,9 +13,9 @@ module comparator (
     holder = 0;
     
     case(alufn) {
-      51: holder = c{15b0, (a == b)}; // equals
-      53: holder = c{15b0, (a < b)}; // less than
-      55: holder = c{15b0, (a <= b)}; // less than or equals
+      1: holder = c{15b0, (a == b)}; // equals
+      2: holder = c{15b0, (a < b)}; // less than
+      3: holder = c{15b0, (a <= b)}; // less than or equals
     }
     
     out = holder[15-:16];   

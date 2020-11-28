@@ -1,0 +1,38 @@
+module score_updater (
+    input num_sig[3], //location of the value from ram to be added to target value
+    input update,
+    input reset,
+    input clk,
+    
+
+    output out_a[16],
+    output out_b[16],
+    output out_c[16],
+    output out_d[16],
+    output out_curr[16],
+    output out_target[16]
+  ) {
+  
+  alu alu_unit;
+  ram_handler ram;
+  random_number_generator generate_num;
+  
+
+
+
+  always {
+    num_sig = 3bx;
+    update = 1b0;
+    reset = 1b0;
+
+    ram.num_sig = 3hx;
+    ram.clk = clk;
+    ram.reset = 1b0;
+    if (state == 1) {
+        ram1.
+
+    }
+    
+    
+  }
+}

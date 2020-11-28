@@ -3,35 +3,14 @@ module adder (
     input a[16],
     input b[16],
     
-    output out[16],
-    output z, // outputs 1 when all output digits are 0
-    output v, // overflow, 1 when output is more than 8 bits
-    output n // significant digit
+    output out[16]
   ) {
-  
-  sig hold[16];
 
   always {
   // there *might* be an issue here
-    if (alufn[0] == 1b0) {
+    if (alufn == 0) {
       // perform addition
-      hold = a + b;
+      out = a + b;
     }
-    else {
-      // perform subtraction
-      hold = a - b;
-    }
-    
-    out = hold[15-:16];
-    
-    if (hold == 0) {
-      z = 1;
-    }
-    else {
-      z = 0;
-    }
-    
-    v = (a[15] & (alufn[0]^b[15]) & ~hold[15]) | (~(alufn[0]^b[15]) & hold[15] & ~a[15]);
-    n = hold[15];
 }
 }
