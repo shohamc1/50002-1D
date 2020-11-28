@@ -5,7 +5,7 @@ module button_handler (
     input n4_sig,
     input reset,
     output reset_out,
-    output nx_signal[3],
+    output nx_signal[3], //output signal to the score updater which indicates which of the four option needs to be updated. nx_signal = 1/2/3/4 for 1st,2nd,3rd and 4th options respectively. 
     output error
   ) {
   
