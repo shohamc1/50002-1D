@@ -1,140 +1,42 @@
 module au_top (
-    input clk,              // 100MHz clock 
-    input rst_n,           // reset button (active low)
-    output led [8],         // 8 user controllable LEDs
-    input usb_rx,
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],         // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
     output io_led [3][8],   // LEDs on IO Shield
-    output usb_tx,
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4],      // Digit select on IO Shield
     input io_button [5],    // 5 buttons on IO Shield
-    input io_dip [3][8],     // DIP switches on IO Shield
-    output io_sel [4],
-    output io_seg [8]
+    input io_dip [3][8]     // DIP switches on IO Shield
   
-  ) { 
-  sig rst, counter[6];
-  tester test;
+  ) {
+   //random ra;
+  random2 random;
+  sig rst;                  // reset signal
+
   .clk(clk) {
-    simple_ram ram (#SIZE(16), #DEPTH(2));
-    .rst(rst){
-      fsm state = {STORE_ALUFN, STORE_A, STORE_B, RESULT, TESTER, ERROR};
-      dff a_input[16], b_input[16], alufn_input[6];        
-    }  
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+  
   }  
-  alu alu1;  
-  always {
-    ram.write_en = 0;
-    ram.address = 0;
-    ram.write_data = 16hxxxx;
-    //button_signal = io_button[2];    
-    usb_tx = usb_rx;
+  always {  
+    reset_cond.in = ~rst_n; // input raw inverted reset signal
+    rst = reset_cond.out;   // conditioned reset
+    
+    usb_tx = usb_rx;        // loop serial port
     
     led = 8h00;             // turn LEDs off
+    
     io_led = 3x{{8h00}};    // turn LEDs off
-    
-    //setting temp value for alu input
-    alu1.a = 16bx;
-    alu1.b = 16bx;
-    alu1.alufn = 6bx;
-    //test.button_signal = 0;
     io_seg = 8hff;          // turn segments off
-    io_sel = 4hf;           
+    io_sel = 4hf;           // select no digits 
     
-    alufn_input.d[5-:6] = 6bx;
-    a_input.d[15-:16] = 16bx;
-    b_input.d[15-:16] = 16bx;
-    
-    counter = 6hxx;
-    test.counter = 6h00;    
-    
-    case (state.q) {    
-      state.STORE_ALUFN:
-        io_led[2][7-:2] = 8h00;
-        io_led[2][5-:6] = io_dip[2][5-:6];
-        io_led[1][7-:8] = 8h00;
-        io_led[0][7-:8] = 8h00; 
-        alufn_input.d[5-:6] = io_dip[2][5-:6];      
-        
-        if(io_button[0] == 1){
-          state.d = state.STORE_A;
-        }
-        else if(io_button[2] == 1){
-          //test.button_signal = 1;
-          ram.address = 1;
-          ram.write_en = 1;
-          ram.write_data = 16h0;
-          ram.write_en = 0;
-          state.d = state.TESTER;
-          
-        }
-        
-      state.ERROR:
-        io_led = 3x{{8hFF}};
-        if(io_button[4] == 1){
-          state.d = state.STORE_ALUFN;
-        }
-      
-      state.STORE_A:
-        io_led[2][7] = 1;
-        io_led[2][6] = 0;
-        ram.write_en = 1;
-        
-        if(alu1.check_alufn == 1){
-          state.d = state.ERROR;
-        }
-        a_input.d[15-:8] = io_dip[1][7-:8];
-        a_input.d[7-:8] = io_dip[0][7-:8];
-        
-        io_led[1][7-:8] = a_input.q[15-:8];
-        io_led[0][7-:8] = a_input.q[7-:8];
-        
-        ram.write_data = a_input.q;
-        
-        if(io_button[3] == 1){
-          state.d = state.STORE_B;
-          ram.write_en=0;
-          //alu1.a[15-:16] = a_input[15-:16];
-        }
-        
-      state.STORE_B:
-        io_led[2][7] = 0;
-        io_led[2][6] = 1;
-        
-        b_input.d[15-:8] = io_dip[1][7-:8];
-        b_input.d[7-:8] = io_dip[0][7-:8];
-        
-        io_led[1][7-:8] = b_input.q[15-:8];
-        io_led[0][7-:8] = b_input.q[7-:8];
-        
-        if(io_button[1] == 1){
-          alu1.a[15-:16] = ram.read_data;
-          alu1.alufn[5-:6] = alufn_input.q[5-:6];
-          alu1.b[15-:16] = b_input.q[15-:16];
-          state.d = state.RESULT;
-        }
-      
-      state.RESULT:
-        io_led[2][7] = 1;
-        io_led[2][6] = 1;
-        
-        io_led[2][2-:3] = alu1.out[18-:3];
-        io_led[1][7-:8] = alu1.out[15-:8];
-        io_led[0][7-:8] = alu1.out[7-:8];
-        if(io_button[4] == 1){    
-          state.d = state.STORE_ALUFN;
-        }   
-          
-      state.TESTER:
-        test.counter = ram.read_data;
-        io_led[2][5] = 1;
-        io_led[1][7-:8] = test.out[15-:8];     
-        io_led[0][7-:8] = test.out[7-:8];                     
-        
-        if(io_button[4] == 1){    
-          //test.button_signal = 0;
-          state.d = state.STORE_ALUFN;
-          ram.address=0;
-        } 
-     
-             
+    random.clk = clk;
+    random.rst = rst;
+    random.next = io_button[0];
+    random.seed = 128h843233523a613966423b622562592c62;
+    io_led[0][5:0] = random.num[7:0];             
   }
 }

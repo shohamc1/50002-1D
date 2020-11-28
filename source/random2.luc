@@ -1,0 +1,53 @@
+// HOW TO USE
+
+/*
+random.clk = clk;
+random.rst = rst;
+random.next = io_button[0];
+random.seed = 128h843233523a613966423b622562592c62;  Use any seed here
+io_led[0][5:0] = random.num[7:0];  Truncate to whatever you need
+*/
+
+module random2 #(
+    // SEED needs to always be non-zero
+    // Since seed is XORed with the 32MSBs of SEED, we need the 96 LSBs to be nonzero.
+    SEED = 128h843233523a613966423b622562592c62: SEED.WIDTH == 128 && SEED[95:0] != 0
+  )(
+    input clk,       // clock
+    input rst,       // reset
+    input next,      // generate next number flag
+    input seed [32], // seed used on reset
+    output num [32]  // "random" number output
+  ) {
+  
+  .clk(clk) {
+    dff x[32], y[32], z[32], w[32]; // state storage
+  }
+  
+  sig t [32];                       // temporary results
+  sig quot; 
+  
+  always {
+    quot = w.q >> 3; // divide by 8
+    // num = w.q - quot * no of bits
+    num =  w.q - (quot * 8);                      // output is from w
+    t = x.q ^ (x.q << 11);          // calculate intermediate value
+    
+    if (next) {                     // if we need a new number
+      x.d = y.q;                    // shift values along
+      y.d = z.q;                   
+      z.d = w.q;
+      
+      // magic formula from Wikipedia
+      w.d = w.q ^ (w.q >> 19) ^ t ^ (t >> 8);
+    }
+    
+    // Manually reset the flip-flops so we can change the reset value
+    if (rst) {
+      x.d = SEED[0+:32];
+      y.d = SEED[32+:32];
+      z.d = SEED[64+:32];
+      w.d = SEED[96+:32] ^ seed;
+    }
+  }
+}
