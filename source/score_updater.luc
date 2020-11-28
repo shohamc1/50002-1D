@@ -55,7 +55,6 @@ module score_updater (
 
       
     } else if (update == 0 && reset == 1) {
-      ram.num_sig = num_sig;
       ram.state = 3;
       ram.hard_reset_values = 42hfffffffffff
     }
