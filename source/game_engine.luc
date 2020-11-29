@@ -1,0 +1,57 @@
+// main FSM
+
+// au_top -> game_engine -> button_handler -> ram_handler and score_updater -> au_top
+
+module game_engine (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    input a,                
+    input b,                // user options
+    input c,
+    input d,
+    input reset,
+    output current,         // current score
+    output target,          // target score
+    output a_display,       
+    output b_display,       // user displays
+    output c_display,
+    output d_display;    
+  ) {
+  
+  sig rst;                  // reset signal
+  simple_ram ram (#SIZE(7), #DEPTH(6));
+
+  dff we, address;
+  sig data = 0b011101;
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    .rst(rst) {
+      fsm state = {IDLE, GAME, END};
+    }
+  }
+
+  button_handler btn;
+  
+  always {
+    // connect to sub handlers
+    btn.a_sig = a;
+    btn.b_sig = b;
+    btn.c_sig = c;
+    btn.d_sig = d;
+
+    ram_push.ram = ram;
+
+    // FSM cases
+    case(state.q) {
+      state.IDLE:
+        ////////
+      state.GAME:
+        ////
+      state.END:
+        ////
+    }
+  }
+}

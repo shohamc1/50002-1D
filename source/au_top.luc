@@ -3,19 +3,12 @@ module au_top (
     input rst_n,            // reset button (active low)
     output led [8],         // 8 user controllable LEDs
     input usb_rx,           // USB->Serial input
-    output usb_tx,           // USB->Serial output
-    input a,
-    input b,
-    input c,
-    input d,
-    input reset,
-    output current,
-    output target,
-    output a_display,
-    output b_display,
-    output c_display,
-    output d_display
-    
+    output usb_tx,          // USB->Serial output
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4],      // Digit select on IO Shield
+    input io_button [5],    // 5 buttons on IO Shield
+    input io_dip [3][8]     // DIP switches on IO Shield
   ) {
   
   sig rst;                  // reset signal
@@ -24,26 +17,38 @@ module au_top (
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
+    simple_ram ram (#SIZE(3), #DEPTH(1));
+    .rst(rst) {
+      fsm state = {START, END};
+    }
   }
-  
-  button_handler button_handler;
   
   always {
     reset_cond.in = ~rst_n; // input raw inverted reset signal
     rst = reset_cond.out;   // conditioned reset
     
+    usb_tx = usb_rx;        // loop serial port
+    
     led = 8h00;             // turn LEDs off
-
-    usb_tx = usb_rx;        // echo the serial data
     
-    button_handler.n1_sig = a;
-    button_handler.n2_sig = b;
-    button_handler.n3_sig = c;
-    button_handler.n4_sig = d; 
-    button_handler.reset = reset;
-    led[0] = button_handler.error;
+    io_led = 3x{{8h00}};    // turn LEDs off
+    io_seg = 8hff;          // turn segments off
+    io_sel = 4hf;           // select no digits
     
+    ram.write_en = 0;
+    ram.write_data = 0;
+    ram.address = 0;
     
-       
+    case (state.q) {
+      state.START:
+        ram.address = 0;
+        ram.write_en = 1;
+        ram.write_data = 3b101;
+        state.d = state.END;
+      state.END:
+        ram.address = 0;
+        ram.write_en = 0;
+        io_led[0][2-:3] = ram.read_data;
+    }
   }
 }

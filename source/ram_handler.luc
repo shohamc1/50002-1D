@@ -2,11 +2,16 @@
 Handles extracting and updating values inside the ram, based on the inputs given.
 */
 
+/* FLOW
+score_updater gets values from RAM -> do calculations (adding the score and comparing etc.)
+if you havent exceeded -> generate random number and write to RAM -> pass to game_engine
+*/
+
 module ram_handler (
     input num_sig[3], //location of the value from ram to be added to target value
     input hard_reset_values[42], // 7bits * 6 slots
     input soft_reset_values[35], // 7bits * 5 slots
-    input state[2], //1 for retrieve, 2 for soft reset, 3 for hard reset
+    input state[2], //1 for retrieve, 2 for soft reset (write), 3 for hard reset (reset), 0 do nothing
     input clk,
 
     output out_number[7],

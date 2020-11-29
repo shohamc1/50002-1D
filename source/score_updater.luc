@@ -1,3 +1,8 @@
+// take output from button handler and generate address for the user options
+
+// recieve button input, invoke score updates, get random number and push to displays
+// will pull from RAM
+
 module score_updater (
     input num_sig[3], //location of the value from ram to be added to target value
     input update,
@@ -58,7 +63,5 @@ module score_updater (
       ram.state = 3;
       ram.hard_reset_values = 42hfffffffffff
     }
-    
-    
   }
 }

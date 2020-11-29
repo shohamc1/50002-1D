@@ -17,6 +17,7 @@
     <src>comparator.luc</src>
     <src>boolean.luc</src>
     <src>shifter.luc</src>
+    <src>game_engine.luc</src>
     <constraint>custom.acf</constraint>
     <constraint>file.xdc</constraint>
   </files>
